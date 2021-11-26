@@ -10,10 +10,10 @@ The model with hyperparameter tuning
 
 ## Exploratory data analysis and feature creation
 ### What did the exploratory analysis find and how did you add additional features?
-Splitting the date field into DAy, Month and Year and then plotting the histogram with new set of features helped on analyzing the data further
+In Exploratory analysis, the histograms were used to display the distribution of each one relative to the data. Also, separating the date field into day, month, hour increased the value to the project. As the project was all about getting the counts based on certain features, this split gave a better insight when checked with the histogram again.
 
 ### How much better did your model preform after adding additional features and why do you think that is?
-The day, month, year field had a better correlation with counts (label) then the date
+As we have more feature relavent features, the score of the model can be increased which is an evident in this project. 
 
 ## Hyper parameter tuning
 ### How much better did your model perform after trying different hyper parameters?
@@ -25,9 +25,17 @@ Hyperparameter tuning
 ### Create a table with the models you ran, the hyperparameters modified, and the kaggle score.
 |model|hpo1|hpo2|hpo3|score|
 |--|--|--|--|--|
-|initial|None|None|None|1.39764|
-|add_features|None|None|None|0.54073|
-|hpo|GBM|NN|None|0.52616|
+|initial|Default Values|Default Values|Default Values|1.39764|
+|add_features|Default Values|Default Values|Default Values|0.54073|
+|hpo|GBM: 'num_boost_round': 100,
+    'num_leaves': ag.space.Int(lower=26, upper=66, default=36)
+    |NN: 'num_epochs': 10,
+    'learning_rate': ag.space.Real(1e-4, 1e-2, default=5e-4, log=True),
+    'activation': ag.space.Categorical('relu', 'softrelu', 'tanh'),
+    'layers': ag.space.Categorical([100], [1000], [200, 100], [300, 200, 100]),
+    'dropout_prob': ag.space.Real(0.0, 0.5, default=0.1)
+    |Default Values
+    |0.52616|
 
 ### Create a line plot showing the top model score for the three (or more) training runs during the project.
 
@@ -42,4 +50,4 @@ TODO: Replace the image below with your own.
 ![model_test_score.png](img/model_test_score.png)
 
 ## Summary
-Autogluon is a library that allows you to easily create and train machine learning models. It is a wrapper around scikit-learn, XGBoost, and other popular machine learning libraries. It is a Python library that allows you to easily create and train machine learning models. It is a wrapper around scikit-learn, XGBoost, and other popular machine learning libraries.
+The model was performing well with its auto tuned hyperparameter. However, with manually tuning on individual models like GBM and NN, it was not so well even after trying with various parameter values. Hence, there is a need to do a better feature engineering and trying with more hyperparameter tuning can help on improving the performance. 
